@@ -275,4 +275,8 @@ dialog[open]::backdrop {
     width: 28px;
     height: 28px;
   }
+
+  .button_footer .button__text {
+  white-space: nowrap;
+}
 }
