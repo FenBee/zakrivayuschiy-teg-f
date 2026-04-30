@@ -1,20 +1,8 @@
-/* Здесь вы напишете основную часть стилей страницы.
-
-Будьте внимательны! Для корректной работы скриптов на этом сайте нужно, чтобы в HTML некоторые классы были названы особым образом:
-✦ like-icon — для svg-иконки анимированного сердца
-✦ card__like-button — для кнопки Like рядом с иконкой
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ is-liked — для обозначения состояния лайкнутой иконки в виде сердца
-✦ button__text — для обозначения текстового элемента внутри кнопки
-
-*/
-
 .page {
   min-inline-size: 320px;
   min-block-size: 100dvb;
   font-family: var(--main-font);
-  font-variation-settings: 'wght'var(--weight-main-text);
+  font-variation-settings: 'wght'var(--weight-main-text, 410);
   background-image: var(--bg-gradient);
   background-attachment: fixed;
   background-size: 4px 4px, 4px 4px, cover;
@@ -22,13 +10,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 50px;
 }
 
 .header {
   width: var(--width-block-decktop);
-  background-color: #fff;
-  border: 2px solid #000;
+  background-color: var(--main-color, #fff);
+  border: 2px solid var(--accent-color, #000);
   margin-bottom: 50px;
 }
 
@@ -38,7 +25,7 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
-  font-family: var(--accent-font);
+  font-family: var(--accent-font, "PressStart2P", monospace);
   padding-block: var(--header-padding-block);
   padding-inline: var(--header-padding-inline);
 }
@@ -55,19 +42,20 @@
   display: flex;
   flex-direction: column;
   gap: 50px;
+  margin-bottom: 50px;
 }
 
 .card {
   width: var(--width-block-decktop);
-  background-color: #fff;
-  border: 2px solid #000;
+  background-color: var(--main-color, #fff);
+  border: 2px solid var(--accent-color, #000);
   overflow: hidden;
 }
 
 .card_title {
-  font-variation-settings: 'wght'var(--weight-title-text);
+  font-variation-settings: 'wght'var(--weight-title-text, 715);
   padding: 4px 10px;
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid var(--accent-color, #000);
 }
 
 .card_image {
@@ -77,7 +65,35 @@
   object-position: center;
 }
 
-.label_wrapper{
+.card_image_contrast {
+  filter: contrast(20%);
+}
+
+.card_image_saturate {
+  filter: saturate(150%);
+}
+
+.card_image_invert {
+  filter: invert(60%);
+}
+
+.card_image_hue-rotate {
+  filter: hue-rotate(50deg);
+}
+
+.card_image_grayscale {
+  filter: grayscale(0.5);
+}
+
+.card_image_sepia {
+  filter: sepia(80%);
+}
+
+.card_image_multiple-filter {
+  filter: saturate(120%) hue-rotate(230deg) blur(0.3rem);
+}
+
+.label_wrapper {
   position: relative;
   max-height: 696px;
   overflow: hidden;
@@ -87,19 +103,18 @@
   position: absolute;
   z-index: 1;
   opacity: 0.5;
-  font-family: var(--accent-font);
-  font-size: var(--font-size-title);
+  font-family: var(--accent-font, "PressStart2P", monospace);
   font-size: 14px;
   text-transform: uppercase;
   inset-inline-end: 25px;
   inset-block-start: 25px;
   text-shadow:
-  -1px 0 var(--color-label-shadow, #fff), 
-  0 1px var(--color-label-shadow, #fff), 
-  1px 0 var(--color-label-shadow, #fff), 
-  0 -1px var(--color-label-shadow, #fff);
+    -1px 0 var(--color-label-shadow, var(--main-color, #fff)),
+    0 1px var(--color-label-shadow, var(--main-color, #fff)),
+    1px 0 var(--color-label-shadow, var(--main-color, #fff)),
+    0 -1px var(--color-label-shadow, var(--main-color, #fff));
   mix-blend-mode: hard-light;
-} 
+}
 
 @supports((text-stroke: 1px var(--color-label-shadow, #fff)) or (-webkit-text-stroke: 1px var(--color-label-shadow, #fff))) {
   .label_image {
@@ -107,7 +122,7 @@
     text-stroke: 1px var(--color-label-shadow, #fff);
     text-shadow: none;
   }
-} 
+}
 
 .text_block {
   margin: 25px;
@@ -129,60 +144,96 @@
 }
 
 .card__icon-button {
-  border: none;
+  border: 2px solid transparent;
   background-color: transparent;
   cursor: pointer;
+  transition: border 0.3s ease;
 }
 
-.card__like-button {
-  border: 2px solid #000;
+.button {
+  border: 2px solid var(--accent-color, #000);
   background-color: transparent;
-   padding: 12.5px 37px;
-   cursor: pointer;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .button__text {
-  font-family: var(--accent-font);
   font-size: 14px;
   line-height: 0.9;
+  font-family: var(--accent-font, "PressStart2P", monospace);
+  font-weight: normal;
+  position: relative;
+  z-index: 2;
+  color: var(--main-color, #fff);
+  mix-blend-mode: difference;
 }
 
-.card__like-button:hover {
-  background-color: #000;
-  color: #fff;
+.card__like-button {
+  padding: 12.5px 37px;
 }
 
-.card__like-button:focus {
-  box-shadow: 2px 2px 0 0 #000;
-  background-color: #fff;
-  color: #000;
+.button::before {
+  content: ' ';
+  position: absolute;
+  inset: -1px;
+  background-color: var(--accent-color, #000);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+}
+
+.button:hover::before {
+  transform: scaleX(1);
+  transition: transform 0.5s ease-in-out;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:focus-visible {
+  outline: none;
+  box-shadow: 2px 2px 0 0 var(--accent-color, #000);
+  transition: box-shadow 0.3s ease;
 }
 
 .card__icon-button:focus {
-  border: 2px solid #000;
+  outline: none;
+}
+
+.card__icon-button:focus-visible {
+  transition: border 0.3s ease;
+  border: 2px solid var(--accent-color, #000);
 }
 
 .button_footer {
-  width: var(--width-button-footer);
+  max-width: 366.5px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
+  gap: 8px;
   padding: 17px 20px;
-  border: 2px solid #000;
-  cursor: pointer;
+  background-color: var(--main-color, #fff);
 }
 
 .image_footer {
   width: 22.5px;
   height: 21px;
+  color: var(--main-color, #fff);
+  mix-blend-mode: difference;
 }
 
-.text_footer {
-  font-size: 14px;
-  line-height: 0.9;
-  font-family: var(--accent-font);
-  font-weight: normal;
+.image_footer.big {
+  width: 39px;
+  height: 39px;
+  object-fit: cover;
+}
+
+dialog[open] .text_dialog {
+  display: grid;
 }
 
 .dialog_window {
@@ -194,7 +245,6 @@
 
 .text_dialog {
   width: clamp(21.31rem, calc(21.048rem + 1.127vw), 22.06rem);
-  display: grid;
   grid-template-columns: min-content 234px;
   align-items: center;
   gap: 20px;
@@ -202,30 +252,27 @@
 }
 
 .text_footer_diskette {
-   text-transform: uppercase;
-   line-height: 1.5;
+  text-transform: uppercase;
+  line-height: 1.5;
 }
 
-dialog::backdrop {
+dialog[open]::backdrop {
   background-color: rgb(0 0 0 / 0.75);
-} 
+}
 
 .button_ok {
-  font-size: 14px;
-  line-height: 0.9;
-  font-family: var(--accent-font);
-  font-weight: normal;
+  inline-size: 100%;
   text-transform: uppercase;
-  background-color: transparent;
-  border: 2px solid #000;
-  padding: 12.5px 132.5px;
-  cursor: pointer;
+  padding: 12.5px 0;
 }
 
-@media (width <= 375px) {
+@media (width < 376px) {
+  .button_footer {
+    max-width: 306px;
+  }
 
+  .image_footer {
+    width: 28px;
+    height: 28px;
+  }
 }
-
-
-
-
