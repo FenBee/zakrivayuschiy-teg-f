@@ -295,7 +295,7 @@ dialog[open]::backdrop {
   inline-size: clamp(16.31rem, calc(15.608rem + 3.005vw), 18.31rem);
   max-block-size: 38px;
   text-transform: uppercase;
-  padding: 12.5px 0;
+  padding: 9px 0;
 }
 
 @media (width < 376px) {
