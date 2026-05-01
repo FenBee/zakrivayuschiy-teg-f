@@ -5,7 +5,7 @@
   font-variation-settings: 'wght'var(--weight-main-text, 410);
   background-image: var(--bg-gradient);
   background-attachment: fixed;
-  background-size: 4px 4px, 4px 4px, cover;
+  background-size: cover;
   margin: 100px 0;
   display: flex;
   flex-direction: column;
@@ -13,10 +13,10 @@
 }
 
 .header {
-  width: var(--width-block-decktop);
+  width: min(100%, var(--width-block-decktop));
   background-color: var(--main-color, #fff);
   border: 2px solid var(--accent-color, #000);
-  margin-bottom: 50px;
+  margin-block-end: 100px;
 }
 
 .header_name {
@@ -25,7 +25,7 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
-  font-family: var(--accent-font, "PressStart2P", monospace);
+  font-family: var(--accent-font, "PressStart2P", fantasy);
   padding-block: var(--header-padding-block);
   padding-inline: var(--header-padding-inline);
 }
@@ -36,17 +36,19 @@
 
 .header_subtitle {
   font-size: var(--font-size-subtitle);
+  text-transform: uppercase;
 }
 
 .main-content {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 50px;
   margin-bottom: 50px;
 }
 
 .card {
-  width: var(--width-block-decktop);
+  width: min(100%, var(--width-block-decktop));
   background-color: var(--main-color, #fff);
   border: 2px solid var(--accent-color, #000);
   overflow: hidden;
@@ -54,6 +56,7 @@
 
 .card_title {
   font-variation-settings: 'wght'var(--weight-title-text, 715);
+  font-size: 18px;
   padding: 4px 10px;
   border-bottom: 2px solid var(--accent-color, #000);
 }
@@ -61,6 +64,7 @@
 .card_image {
   width: 100%;
   height: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   object-position: center;
 }
@@ -103,7 +107,7 @@
   position: absolute;
   z-index: 1;
   opacity: 0.5;
-  font-family: var(--accent-font, "PressStart2P", monospace);
+  font-family: var(--accent-font, "PressStart2P", fantasy);
   font-size: 14px;
   text-transform: uppercase;
   inset-inline-end: 25px;
@@ -139,15 +143,28 @@
 .button_block {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   gap: 12px;
   padding: 0 25px 25px 0;
 }
 
+.like-icon {
+  inline-size: 39px;
+  block-size: 36px;
+  display: block;
+}
+
 .card__icon-button {
+  inline-size: 39px;
+  block-size: 38px;
   border: 2px solid transparent;
   background-color: transparent;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: border 0.3s ease;
+  padding: 7px 0;
 }
 
 .button {
@@ -162,7 +179,7 @@
 .button__text {
   font-size: 14px;
   line-height: 0.9;
-  font-family: var(--accent-font, "PressStart2P", monospace);
+  font-family: var(--accent-font, "PressStart2P", fantasy);
   font-weight: normal;
   position: relative;
   z-index: 2;
@@ -171,7 +188,12 @@
 }
 
 .card__like-button {
-  padding: 12.5px 37px;
+  padding: 12.5px 0;
+  inline-size: 130px;
+  max-block-size: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .button::before {
@@ -186,7 +208,6 @@
 
 .button:hover::before {
   transform: scaleX(1);
-  transition: transform 0.5s ease-in-out;
 }
 
 .button:focus {
@@ -196,7 +217,6 @@
 .button:focus-visible {
   outline: none;
   box-shadow: 2px 2px 0 0 var(--accent-color, #000);
-  transition: box-shadow 0.3s ease;
 }
 
 .card__icon-button:focus {
@@ -204,7 +224,6 @@
 }
 
 .card__icon-button:focus-visible {
-  transition: border 0.3s ease;
   border: 2px solid var(--accent-color, #000);
 }
 
@@ -232,19 +251,31 @@
   object-fit: cover;
 }
 
+dialog {
+  padding: 0;
+  border: none;
+}
+
+dialig[open] {
+  inline-size: min(357px, calc(100vw - 34px));
+}
+
 dialog[open] .text_dialog {
   display: grid;
 }
 
 .dialog_window {
-  padding: 30px;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  padding: 30px;
+  max-inline-size: 353px;
+  overflow: hidden;
 }
 
 .text_dialog {
-  width: clamp(21.31rem, calc(21.048rem + 1.127vw), 22.06rem);
+  width: clamp(261px, calc(15.608rem + 3.005vw), 293px);
+  ;
   grid-template-columns: min-content 234px;
   align-items: center;
   gap: 20px;
@@ -261,7 +292,8 @@ dialog[open]::backdrop {
 }
 
 .button_ok {
-  inline-size: 100%;
+  inline-size: clamp(16.31rem, calc(15.608rem + 3.005vw), 18.31rem);
+  max-block-size: 38px;
   text-transform: uppercase;
   padding: 12.5px 0;
 }
@@ -277,6 +309,10 @@ dialog[open]::backdrop {
   }
 
   .button_footer .button__text {
-  white-space: nowrap;
-}
+    white-space: nowrap;
+  }
+
+  .dialog_window {
+    padding: 30px 40px;
+  }
 }
